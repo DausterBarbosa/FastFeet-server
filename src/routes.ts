@@ -24,5 +24,8 @@ route.put("/recipient/:id", RecipientsController.update);
 route.post("/avatar", upload.single("avatar"), AvatarController.create);
 
 route.post("/deliveryman", DeliveryManController.create);
+route.get("/deliveryman", DeliveryManController.index);
+route.put("/deliveryman/:id", DeliveryManController.update);
+route.delete("/deliveryman/:id", DeliveryManController.delete);
 
 export default route;
