@@ -59,15 +59,17 @@ class DeliveryManController{
 
         await DeliveryManRepository.save(newDeliveryman);
 
-        const AvatarRepository = getRepository(Avatar);
-        const {path} = await AvatarRepository.findOne({where: {id: deliveryman.avatar_id}});
-        await AvatarRepository.delete(deliveryman.avatar_id);
+        if(req.body.avatar_id){
+            const AvatarRepository = getRepository(Avatar);
+            const {path} = await AvatarRepository.findOne({where: {id: deliveryman.avatar_id}});
+            await AvatarRepository.delete(deliveryman.avatar_id);
 
-        fs.unlink(path, (err) =>{
-            if(err){
-                console.log(err);
-            }
-        });
+            fs.unlink(path, (err) =>{
+                if(err){
+                    console.log(err);
+                }
+            });
+        }
 
         return res.status(200).json(newDeliveryman);
     }
