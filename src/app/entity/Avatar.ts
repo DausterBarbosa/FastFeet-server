@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, AfterLoad} from "typeorm";
 
 @Entity()
 export default class Avatar {
@@ -10,4 +10,11 @@ export default class Avatar {
 
     @Column()
     path: string;
+
+    url: string;
+
+    @AfterLoad()
+    createUrl(){
+        this.url = `http://localhost:3333/static/${this.name}`;
+    }
 }
