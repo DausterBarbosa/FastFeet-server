@@ -21,10 +21,17 @@ class DeliveryManController{
         }
 
         const DeliveryManRepository = getRepository(Deliveryman);
-        const deliveryman = DeliveryManRepository.create(req.body);
-        const vamos = await DeliveryManRepository.save(deliveryman);
 
-        return res.status(200).json(vamos);
+        const duplicateEmail = DeliveryManRepository.findOne({where: {email: req.body.email}});
+
+        if(duplicateEmail){
+            return res.status(401).json({"Error": "Email already exists"});
+        }
+
+        const deliveryman = DeliveryManRepository.create(req.body);
+        await DeliveryManRepository.save(deliveryman);
+
+        return res.status(200).json({"status": "Deliveryman created"});
     }
 
     async index(req:Request, res:Response){
@@ -50,6 +57,17 @@ class DeliveryManController{
         const {id} = req.params;
 
         const DeliveryManRepository = getRepository(Deliveryman);
+
+        const {avatar_id, email} = req.body;
+
+        if(email){
+            const duplicateEmail = await DeliveryManRepository.findOne({where: {email}});
+
+            if(duplicateEmail){
+                return res.status(401).json({"Error": "Email already exists"});
+            }
+        }
+
         const deliveryman = await DeliveryManRepository.findOne({where: {id}});
 
         const newDeliveryman = {
@@ -59,16 +77,19 @@ class DeliveryManController{
 
         await DeliveryManRepository.save(newDeliveryman);
 
-        if(req.body.avatar_id){
+        if(avatar_id){
             const AvatarRepository = getRepository(Avatar);
-            const {path} = await AvatarRepository.findOne({where: {id: deliveryman.avatar_id}});
-            await AvatarRepository.delete(deliveryman.avatar_id);
+            const {path, id} = await AvatarRepository.findOne({where: {id: deliveryman.avatar_id}});
+            
+            if(avatar_id !== id){
+                await AvatarRepository.delete(deliveryman.avatar_id);
 
-            fs.unlink(path, (err) =>{
-                if(err){
-                    console.log(err);
-                }
-            });
+                fs.unlink(path, (err) =>{
+                    if(err){
+                        console.log(err);
+                    }
+                });
+            }
         }
 
         return res.status(200).json(newDeliveryman);
@@ -79,6 +100,11 @@ class DeliveryManController{
 
         const DeliveryManRepository = getRepository(Deliveryman);
         const deliveryman= await DeliveryManRepository.findOne({where:{id}});
+
+        if(!deliveryman){
+            return res.status(401).json({"Error": "Deliveryman not found"});
+        }
+
         await DeliveryManRepository.delete(deliveryman.id);
 
         const AvatarRepository = getRepository(Avatar);
