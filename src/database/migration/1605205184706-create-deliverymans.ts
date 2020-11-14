@@ -48,7 +48,6 @@ export class createDeliverymans1605205184706 implements MigrationInterface {
             columnNames: ["avatar_id"],
             referencedTableName: "avatar",
             referencedColumnNames: ["id"],
-            onDelete: "CASCADE",
         }));
     }
 
