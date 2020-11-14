@@ -80,7 +80,14 @@ class DeliveryManController{
         await DeliveryManRepository.delete(deliveryman.id);
 
         const AvatarRepository = getRepository(Avatar);
+        const {path} = await AvatarRepository.findOne({where: {id: deliveryman.avatar_id}});
         await AvatarRepository.delete(deliveryman.avatar_id);
+
+        fs.unlink(path, (err) =>{
+            if(err){
+                console.log(err);
+            }
+        });
 
         return res.status(200).json({"status": "Deliveryman deleted"});
     }
