@@ -1,4 +1,6 @@
-import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn} from "typeorm";
+
+import Avatar from "./Avatar";
 
 @Entity()
 export default class Deliveryman {
@@ -13,4 +15,8 @@ export default class Deliveryman {
 
     @Column()
     avatar_id: number;
+
+    @OneToOne(() => Avatar)
+    @JoinColumn({name: "avatar_id"})
+    avatar: Avatar;
 }
