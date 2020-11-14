@@ -23,6 +23,7 @@ export class createDeliverymans1605205184706 implements MigrationInterface {
                     name: "email",
                     type: "varchar",
                     isNullable: false,
+                    isUnique: true,
                 },
                 {
                     name: "created_at",
