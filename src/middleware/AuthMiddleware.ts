@@ -14,9 +14,7 @@ function AuthMiddleware(req:Request, res:Response, next:NextFunction){
     const [, token] = authorization.split(" ");
 
     try {
-        const decoded = jwt.verify(token, TokenConfig.secret);
-
-        console.log(decoded);
+        jwt.verify(token, TokenConfig.secret);
 
         next();
     } catch (error) {
