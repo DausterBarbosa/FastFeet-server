@@ -14,7 +14,7 @@ class DeliveryManController{
             name: yup.string().required(),
             email: yup.string().email().required(),
             avatar_id: yup.number().required(),
-        });
+        }).noUnknown().required().strict(true);
 
         if(! (await shape.isValid(req.body))){
             return res.status(401).json({"Error": "Validation fail"});
@@ -22,7 +22,7 @@ class DeliveryManController{
 
         const DeliveryManRepository = getRepository(Deliveryman);
 
-        const duplicateEmail = DeliveryManRepository.findOne({where: {email: req.body.email}});
+        const duplicateEmail = await DeliveryManRepository.findOne({where: {email: req.body.email}});
 
         if(duplicateEmail){
             return res.status(401).json({"Error": "Email already exists"});
