@@ -7,8 +7,20 @@ import "./database";
 
 import Routes from "./routes";
 
-export const app = express();
+class App{
+    public server = express();
 
-app.use(express.json());
-app.use("/static", express.static(path.resolve(__dirname, "..", "uploads", "avatars")));
-app.use(Routes);
+    constructor(){
+        this.middlewares();
+    }
+
+    middlewares(){
+        this.server.use(express.json());
+        this.server.use("/static", express.static(path.resolve(__dirname, "..", "uploads", "tmp")));
+        this.server.use(Routes);
+    }
+}
+
+const app =  new App;
+
+export default app.server;
