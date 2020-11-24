@@ -14,7 +14,7 @@ class RecipientsController{
             state: yup.string().required(),
             city: yup.string().required(),
             cep: yup.string().required(),
-        });
+        }).noUnknown().required().strict(true);
 
         if(! (await schema.isValid(req.body))){
             return res.status(401).json({"Error": "Validation fail"});
@@ -35,7 +35,7 @@ class RecipientsController{
             state: yup.string(),
             city: yup.string(),
             cep: yup.string(),
-        });
+        }).noUnknown().required().strict(true);
 
         if(! (await schema.isValid(req.body))){
             return res.status(401).json({"Error": "Validation fail"});
