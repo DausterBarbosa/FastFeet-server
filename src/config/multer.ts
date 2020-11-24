@@ -4,7 +4,7 @@ import path from "path";
 import crypto from "crypto";
 
 const config = multer.diskStorage({
-    destination: path.resolve(__dirname, "..", "..", "uploads", "avatars"),
+    destination: path.resolve(__dirname, "..", "..", "uploads", "tmp"),
     filename: (req, file, callback) => {
         const hash =  crypto.randomBytes(20).toString("hex");
 
