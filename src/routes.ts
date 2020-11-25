@@ -16,6 +16,7 @@ import DeliveryDoneController from "./app/controllers/DeliveryDoneController";
 import StartDateController from "./app/controllers/StartDateController";
 import EndDateController from "./app/controllers/EndDateController";
 import ProblemController from "./app/controllers/ProblemController";
+import ProblemIndexController from "./app/controllers/ProblemIndexController";
 
 const route = Router();
 const upload = multer({storage: MulterConfig});
@@ -25,9 +26,12 @@ route.post("/session", SessionController.create);
 
 route.get("/deliveryman/:id/deliveries/waiting", DeliveryWaitingController.index);
 route.get("/deliveryman/:id/deliveries/done", DeliveryDoneController.index);
+
 route.post("/deliveryman/:deliverymanid/order/:orderid/start_date", StartDateController.create);
 route.post("/deliveryman/:deliverymanid/order/:orderid/end_date", EndDateController.create);
+
 route.post("/order/:id/problems", ProblemController.create);
+route.get("/order/:id/problems", ProblemController.index);
 
 route.post("/signature", upload.single("signature"), SignatureController.create);
 
@@ -47,5 +51,7 @@ route.post("/order", OrderController.create);
 route.get("/order", OrderController.index);
 route.put("/order/:id", OrderController.update);
 route.delete("/order/:id", OrderController.delete);
+
+route.get("/order/problems", ProblemIndexController.index);
 
 export default route;
