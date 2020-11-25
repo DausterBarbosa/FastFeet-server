@@ -27,6 +27,17 @@ class ProblemController {
 
         return res.status(200).json({"status": "Problem created"});
     }
+
+    async index(req: Request, res:Response){
+        const {id} = req.params;
+
+        const ProblemController = getRepository(Problem);
+        const problems = await ProblemController.find({
+            where: {order_id: id}
+        });
+
+        return res.status(200).json(problems);
+    }
 }
 
 export default new ProblemController;
