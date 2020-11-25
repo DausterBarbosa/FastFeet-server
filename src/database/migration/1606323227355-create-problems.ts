@@ -35,13 +35,13 @@ export class createProblems1606323227355 implements MigrationInterface {
         }));
 
         await queryRunner.addColumn("problem", new TableColumn({
-            name: "delivery_id",
+            name: "order_id",
             type: "int",
             isNullable: false,
         }));
 
         await queryRunner.createForeignKey("problem", new TableForeignKey({
-            columnNames: ["delivery_id"],
+            columnNames: ["order_id"],
             referencedTableName: "order",
             referencedColumnNames: ["id"]
         }));
