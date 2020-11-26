@@ -17,6 +17,7 @@ import StartDateController from "./app/controllers/StartDateController";
 import EndDateController from "./app/controllers/EndDateController";
 import ProblemController from "./app/controllers/ProblemController";
 import ProblemIndexController from "./app/controllers/ProblemIndexController";
+import CancelController from "./app/controllers/CancelController";
 
 const route = Router();
 const upload = multer({storage: MulterConfig});
@@ -53,5 +54,7 @@ route.put("/order/:id", OrderController.update);
 route.delete("/order/:id", OrderController.delete);
 
 route.get("/order/problems", ProblemIndexController.index);
+
+route.delete("/problem/:id/cancel-delivery", CancelController.create);
 
 export default route;
