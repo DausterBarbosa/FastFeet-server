@@ -3,9 +3,10 @@ import Bull from "bull";
 import redisConfig from "../config/redis";
 
 import OrderRegisterMail from "../app/jobs/OrderRegisterMail";
+import OrderCanceledMail from "../app/jobs/OrderCanceledMail";
 
 class Queue{
-    private jobs = [OrderRegisterMail];
+    private jobs = [OrderRegisterMail, OrderCanceledMail];
     private queues = {};
 
     constructor(){
