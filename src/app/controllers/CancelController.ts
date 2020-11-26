@@ -27,8 +27,6 @@ class CancelController {
 
         const {deliveryman, recipient, product} = order;
 
-        console.log(deliveryman, recipient, product)
-
         const data = {
             deliveryman: {
                 email: deliveryman.email,
