@@ -5,10 +5,9 @@ import path from "path";
 import nohbs from "nodemailer-express-handlebars";
 import hbs from "express-handlebars";
 
-import Config from "../config/nodemailer";
+import config from "../config/nodemailer";
 
 interface MessageProps {
-    from: string;
     to: string;
     subject: string;
     template: string;
@@ -16,7 +15,7 @@ interface MessageProps {
 }
 
 class Email{
-    private transporter = nodemailer.createTransport(Config);
+    private transporter = nodemailer.createTransport(config);
 
     constructor(){
         this.configureTemplate();
@@ -35,7 +34,10 @@ class Email{
     }
 
     async sendEmail(message:MessageProps){
-        await this.transporter.sendMail(message);
+        await this.transporter.sendMail({
+            ...config.default,
+            ...message,
+        });
     }
 }
 

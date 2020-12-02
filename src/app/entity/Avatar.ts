@@ -15,6 +15,6 @@ export default class Avatar {
 
     @AfterLoad()
     createUrl(){
-        this.url = `http://localhost:3333/static/${this.name}`;
+        this.url = `${process.env.APP_URL}/static/${this.name}`;
     }
 }

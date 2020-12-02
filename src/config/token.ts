@@ -1,4 +1,4 @@
 export default {
-    secret: "d80e8dfd7633018cdd76a964eeebe803",
-    time: "172800000",
+    secret: process.env.TOKEN_SECRET,
+    time: process.env.TOKEN_TIME,
 }

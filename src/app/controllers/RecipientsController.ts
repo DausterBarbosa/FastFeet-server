@@ -22,7 +22,7 @@ class RecipientsController{
         const repository = RecipientRepository.create(req.body);
         await RecipientRepository.save(repository);
 
-        return res.status(200).json(repository);
+        return res.status(200).json({"status": "Recipient created"});
     }
 
     async update(req: Request, res: Response){
@@ -49,7 +49,7 @@ class RecipientsController{
 
         await RecipientRepository.save(updatedRecipient);
 
-        return res.status(200).json(updatedRecipient);
+        return res.status(200).json({"status": "Recipient updated"});
     }
 }
 

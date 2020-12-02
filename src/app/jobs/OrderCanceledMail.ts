@@ -7,7 +7,6 @@ class OrderCancelledMail {
 
     async handle(data){
         await Email.sendEmail({
-            from: '"Fred Foo 👻" <foo@example.com>',
             to: data.data.deliveryman.email,
             subject: "Encomenda cancelada",
             template: "order-canceled",

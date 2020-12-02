@@ -7,7 +7,6 @@ class OrderRegisterMail{
 
     async handle(data){
         return await Email.sendEmail({
-            from: '"Fred Foo 👻" <foo@example.com>',
             to: data.data.deliveryman.email,
             subject: "Encomenda",
             template: "order-create",

@@ -88,7 +88,7 @@ class DeliveryManController{
             }
         }
 
-        return res.status(200).json(newDeliveryman);
+        return res.status(200).json({"status": "Deliveryman updated"});
     }
 
     async delete(req:Request, res:Response){
