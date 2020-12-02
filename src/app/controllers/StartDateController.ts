@@ -13,9 +13,7 @@ class StartDateController {
             start_date: yup.string().required()
         }).noUnknown().required().strict(true);
 
-        if(! (await schema.isValid(req.body))){
-            return res.status(401).json({"status": "Validation fail"});
-        }
+        await schema.validate(req.body, {abortEarly: false});
 
         const startHour = new Date();
         startHour.setHours(8, 0, 0);

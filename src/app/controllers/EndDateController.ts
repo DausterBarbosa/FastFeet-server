@@ -12,9 +12,7 @@ class EndDateController {
             signature_id: yup.number().required()
         }).noUnknown().required().strict(true);
 
-        if(! (await schema.isValid(req.body))){
-            return res.status(401).json({"error": "Validation fail"});
-        }
+        await schema.validate(req.body, {abortEarly: false});
 
         const {deliverymanid, orderid} = req.params;
 

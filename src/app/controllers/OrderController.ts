@@ -18,9 +18,7 @@ class OrderController{
             product: yup.string().required()
         }).noUnknown().required().strict(true);
 
-        if(!(await schema.isValid(req.body))){
-            return res.status(401).json({"Erro": "Validation fail"});
-        }
+        await schema.validate(req.body, {abortEarly: false});
 
         const OrderRepository = getRepository(Order);
         const order = OrderRepository.create(req.body);
@@ -64,9 +62,7 @@ class OrderController{
             product: yup.string(),
         }).noUnknown().required().strict(true);
 
-        if(!(await schema.isValid(req.body))){
-            return res.status(401).json({"Erro": "Validation fail"});
-        }
+        await schema.validate(req.body, {abortEarly: false});
 
         const {id} = req.params;
 

@@ -10,15 +10,13 @@ import {Request, Response} from "express";
 
 class DeliveryManController{
     async create(req:Request, res:Response){
-        const shape = yup.object().shape({
+        const schema = yup.object().shape({
             name: yup.string().required(),
             email: yup.string().email().required(),
             avatar_id: yup.number().required(),
         }).noUnknown().required().strict(true);
 
-        if(! (await shape.isValid(req.body))){
-            return res.status(401).json({"Error": "Validation fail"});
-        }
+        await schema.validate(req.body, {abortEarly: false});
 
         const DeliveryManRepository = getRepository(Deliveryman);
 
@@ -44,15 +42,13 @@ class DeliveryManController{
     }
 
     async update(req:Request, res:Response){
-        const shape = yup.object().shape({
+        const schema = yup.object().shape({
             name: yup.string(),
             email: yup.string().email(),
             avatar_id: yup.number(),
-        });
+        }).noUnknown().required().strict(true);
 
-        if(! (await shape.isValid(req.body))){
-            return res.status(401).json({"Error": "Validation fail"})
-        }
+        await schema.validate(req.body, {abortEarly: false});
 
         const {id} = req.params;
 

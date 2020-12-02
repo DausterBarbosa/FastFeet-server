@@ -13,11 +13,9 @@ class SessionController{
         const schema = yup.object().shape({
             email: yup.string().email().required(),
             password: yup.string().required(),
-        });
+        }).noUnknown().required().strict(true);
 
-        if(! (await schema.isValid(req.body))){
-            return res.status(401).json({"error": "Validation fail"});
-        }
+        await schema.validate(req.body, {abortEarly: false});
 
         const {email, password} = req.body;
 

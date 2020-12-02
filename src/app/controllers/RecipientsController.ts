@@ -16,9 +16,7 @@ class RecipientsController{
             cep: yup.string().required(),
         }).noUnknown().required().strict(true);
 
-        if(! (await schema.isValid(req.body))){
-            return res.status(401).json({"Error": "Validation fail"});
-        }
+        await schema.validate(req.body, {abortEarly: false});
 
         const RecipientRepository = getRepository(Recipient);
         const repository = RecipientRepository.create(req.body);
@@ -37,9 +35,7 @@ class RecipientsController{
             cep: yup.string(),
         }).noUnknown().required().strict(true);
 
-        if(! (await schema.isValid(req.body))){
-            return res.status(401).json({"Error": "Validation fail"});
-        }
+        await schema.validate(req.body, {abortEarly: false});
 
         const {id} = req.params;
 

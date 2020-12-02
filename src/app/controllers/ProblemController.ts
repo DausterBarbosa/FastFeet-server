@@ -11,9 +11,7 @@ class ProblemController {
             description: yup.string().required(),
         }).noUnknown().required().strict(true);
 
-        if(! (await schema.isValid(req.body))){
-            return res.status(401).json({"error": "Validation fail"});
-        }
+        await schema.validate(req.body, {abortEarly: false});
 
         const {id} = req.params;
         const {description} = req.body;
