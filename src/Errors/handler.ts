@@ -4,7 +4,7 @@ import {ValidationError} from "yup";
 
 const ErrorHandler:ErrorRequestHandler = (err, req, res, next) => {
     if(err instanceof ValidationError){
-        return res.status(401).json({
+        return res.status(400).json({
             status: "validation fail",
             errors: err.errors
         });
