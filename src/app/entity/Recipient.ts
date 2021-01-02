@@ -12,6 +12,9 @@ export default class Recipient {
     street: string;
 
     @Column()
+    number: number;
+
+    @Column()
     complement: string;
 
     @Column()

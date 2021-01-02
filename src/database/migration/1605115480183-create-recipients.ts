@@ -25,6 +25,11 @@ export class createRecipients1605115480183 implements MigrationInterface {
                     isNullable: false,
                 },
                 {
+                    name: "number",
+                    type: "int",
+                    isNullable: false,
+                },
+                {
                     name: "complement",
                     type: "varchar",
                     isNullable: false,
