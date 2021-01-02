@@ -49,7 +49,7 @@ class OrderController{
     async index(req:Request, res:Response){
         const OrderRepository = getRepository(Order);
         const orders = await OrderRepository.find({
-            relations: ["recipient", "deliveryman"]
+            relations: ["recipient", "deliveryman", "signature"]
         });
 
         return res.status(200).json(orders);
