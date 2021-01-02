@@ -26,6 +26,13 @@ class RecipientsController{
         return res.status(200).json({"status": "Recipient created"});
     }
 
+    async index(req:Request, res:Response){
+        const RecipientRepository = getRepository(Recipient);
+        const recipients = await RecipientRepository.find();
+
+        return res.status(200).json(recipients);
+    }
+
     async update(req: Request, res: Response){
         const schema = yup.object().shape({
             name: yup.string(),
@@ -51,6 +58,21 @@ class RecipientsController{
         await RecipientRepository.save(updatedRecipient);
 
         return res.status(200).json({"status": "Recipient updated"});
+    }
+
+    async delete(req:Request, res:Response){
+        const {id} = req.params;
+
+        const RecipientRepository = getRepository(Recipient);
+        const recipient = await RecipientRepository.findOne({where:{id}});
+
+        if(!recipient){
+            return res.status(401).json({"Error": "Recipient not found"});
+        }
+
+        await RecipientRepository.delete(recipient.id);
+
+        return res.status(200).json({"status": "Recipient deleted"});
     }
 }
 

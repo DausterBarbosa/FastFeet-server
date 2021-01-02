@@ -39,7 +39,9 @@ route.post("/signature", upload.single("signature"), SignatureController.create)
 route.use(AuthMiddleware);
 
 route.post("/recipient", RecipientsController.create);
+route.get("/recipient", RecipientsController.index);
 route.put("/recipient/:id", RecipientsController.update);
+route.delete("/recipient/:id", RecipientsController.delete);
 
 route.post("/avatar", upload.single("avatar"), AvatarController.create);
 
