@@ -48,6 +48,15 @@ class OrderController{
 
     async index(req:Request, res:Response){
         const OrderRepository = getRepository(Order);
+
+        if(req.query.id){
+            const order = await OrderRepository.findOne({
+                where: {id: req.query.id},
+                relations: ["recipient", "deliveryman", "signature"]
+            });
+            return res.status(200).json(order);
+        }
+
         const orders = await OrderRepository.find({
             relations: ["recipient", "deliveryman", "signature"]
         });
